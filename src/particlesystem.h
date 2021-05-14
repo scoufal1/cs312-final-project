@@ -13,6 +13,7 @@ namespace agl
    {
       glm::vec3 pos;
       glm::vec3 vel;
+      glm::vec3 force;
       glm::vec4 color;
       float size;
       float mass;

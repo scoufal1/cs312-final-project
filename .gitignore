@@ -8,9 +8,13 @@ a.out
 Debug
 Release
 .vs
+.vscode
 bin
 build
 *~
 *.swp
 *.swo
 *.DS_Store
+src/linesystem.cpp
+src/linesystem.h
+src/main-lines.cpp
