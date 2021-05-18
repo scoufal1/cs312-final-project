@@ -130,6 +130,7 @@ int main(int argc, char **argv)
 
    while (!glfwWindowShouldClose(window))
    {
+      ParticleSystem::GetRenderer().setUp(vec3(0.0, 1.0, 0.0));
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear the buffers
 
       float dt = glfwGetTime() - lastTime;

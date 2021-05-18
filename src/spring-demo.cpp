@@ -18,7 +18,8 @@ SpringSystem theSystem;
 
 bool mouse_pressed = false;
 bool shift_pressed = false;
-bool movePart = false;
+//bool movePart = false;
+int selectedParticle = -1;
 
 float lastXPos = 500.0f / 2;
 float lastYPos = 500.0f / 2;
@@ -34,6 +35,22 @@ static void key_callback(GLFWwindow *window, int key, int scancode, int action, 
     if (key == GLFW_KEY_ESCAPE)
     {
         glfwSetWindowShouldClose(window, GLFW_TRUE);
+    }
+    else if (key == 'K')
+    {
+        theSystem.increaseKspring();
+    }
+    else if (key == 'J')
+    {
+        theSystem.decreaseKspring();
+    }
+    else if (key == 'M')
+    {
+        theSystem.increaseMasses();
+    }
+    else if (key == 'N')
+    {
+        theSystem.decreaseMasses();
     }
 }
 
@@ -79,7 +96,7 @@ static void mouse_button_callback(GLFWwindow *window, int button, int action, in
 
 static void cursor_position_callback(GLFWwindow *window, double xpos, double ypos)
 {
-    if (mouse_pressed && !movePart)
+    if (mouse_pressed && selectedParticle < 0)
     {
 
         // compute change in mouse movement
@@ -153,11 +170,11 @@ int main(int argc, char **argv)
     glEnable(GL_CULL_FACE);
     glClearColor(0, 0, 0, 1);
 
-    theSystem.init(1);
+    theSystem.init(10);
     float fov = radians(30.0f);
 
     ParticleSystem::GetRenderer().perspective(fov, 1.0f, 0.1f, 10.0f);
-    ParticleSystem::GetRenderer().lookAt(vec3(0, 0, 4), vec3(0, 0, 0));
+    ParticleSystem::GetRenderer().lookAt(vec3(0, 0, dist), vec3(0, 0, 0));
 
     float lastTime = glfwGetTime();
 
@@ -167,7 +184,8 @@ int main(int argc, char **argv)
     while (!glfwWindowShouldClose(window))
     {
         ParticleSystem::GetRenderer().setUp(vec3(0.0, 1.0, 0.0));
-        if (!movePart)
+        //if (!movePart)
+        if (selectedParticle < 0)
         {
             // calculate lookfrom position
             float x = dist * sin(glm::radians(azimuth)) * cos(glm::radians(elevation));
@@ -197,7 +215,13 @@ int main(int argc, char **argv)
             // convert from screen coordinates
             // if mouse is pressed on on particle, change particle position to mouse position until release
             //movePart = theSystem.moveParticle(2 * (xpos / width) - 1, 2 * (-ypos / height) + 1, azimuth, elevation);
-            movePart = theSystem.moveParticle(xpos, ypos);
+            //movePart = theSystem.moveParticle(xpos, ypos);
+            //selectedParticle = theSystem.hitParticle(xpos, ypos);
+            selectedParticle = theSystem.hitParticle(xpos, ypos);
+            if (selectedParticle >= 0)
+            {
+                theSystem.moveParticle(selectedParticle, xpos, ypos);
+            }
         }
         else
         {

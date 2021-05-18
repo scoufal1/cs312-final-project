@@ -19,11 +19,17 @@ namespace agl
         virtual void update(float dt) override;
         virtual void draw() override;
         virtual ~SpringSystem() override;
-        bool moveParticle(double xpos, double ypos);
+        int hitParticle(double xpos, double ypos);
+        bool moveParticle(int selectedParticle, double xpos, double ypos);
         void calculateForces(float dt);
+        void increaseKspring();
+        void decreaseKspring();
+        void increaseMasses();
+        void decreaseMasses();
 
     protected:
         std::vector<Spring> mSprings;
+        float kspring = 6.0f;
     };
 } // namespace agl
 #endif
