@@ -25,6 +25,7 @@ namespace agl
       virtual void perspective(float fovRadians, float aspect, float near, float far);
       virtual void ortho(float minx, float maxx, float miny, float maxy, float minz, float maxz);
       virtual void lookAt(const glm::vec3 &lookfrom, const glm::vec3 &lookat);
+      virtual void setUp(const glm::vec3 &up);
 
       virtual void begin(GLuint textureId, BlendMode mode);
       virtual void quad(const glm::vec3 &pos, const glm::vec4 &color, float size);
@@ -33,6 +34,8 @@ namespace agl
 
       virtual bool initialized() const;
       glm::vec3 cameraPosition() const;
+      glm::vec2 getScreenCoords(glm::vec3 point3D);
+      glm::vec3 getWorldCoords(glm::vec2 screen2D);
 
    protected:
       virtual void blendMode(BlendMode mode);

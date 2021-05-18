@@ -40,6 +40,40 @@ vec3 Renderer::cameraPosition() const
    return mLookfrom;
 }
 
+vec2 Renderer::getScreenCoords(vec3 point3D)
+{
+   vec2 viewOffset = vec2(0.0, 0.0);
+   vec2 viewSize = vec2(500.0, 500.0);
+
+   vec4 clipSpacePos = mProjectionMatrix * (mViewMatrix * vec4(point3D, 1.0));
+
+   vec3 ndcSpacePos = vec3(clipSpacePos.x, clipSpacePos.y, clipSpacePos.z) / clipSpacePos.w;
+   vec2 windowSpacePos = vec2(((ndcSpacePos.x + 1.0) / 2.0) * viewSize.x + viewOffset.x, ((1.0 - ndcSpacePos.y) / 2.0) * viewSize.y + viewOffset.y);
+
+   return windowSpacePos;
+}
+
+vec3 Renderer::getWorldCoords(glm::vec2 screen2D)
+{
+   vec2 viewOffset = vec2(0.0, 0.0);
+   vec2 viewSize = vec2(500.0, 500.0);
+
+   // what should the third coordinate here be?
+   vec3 ndcSpacePos = vec3(((screen2D.x * 2.0) / viewSize.x) - 1.0, -1 * (((screen2D.y * 2.0) / viewSize.y) - 1.0), 1.0);
+
+   // how to convert from ndcSpacePos to clipSpace?
+
+   mat4 inverseProjection = inverse(mProjectionMatrix);
+   mat4 inverseView = inverse(mViewMatrix);
+
+   vec4 viewPos = inverseProjection * vec4(ndcSpacePos, 1.0);
+
+   // set z pos of screen coordinates (wrt eye) to near distance of perspective projection
+   viewPos.z = 0.1f;
+   vec4 worldPos = inverseProjection * viewPos;
+   return vec3(worldPos.x, worldPos.y, worldPos.z);
+}
+
 void Renderer::init(const std::string &vertex, const std::string &fragment)
 {
    mInitialized = true;
@@ -123,6 +157,11 @@ void Renderer::lookAt(const vec3 &lookfrom, const vec3 &lookat)
 {
    mLookfrom = lookfrom;
    mViewMatrix = glm::lookAt(lookfrom, lookat, vec3(0, 1, 0));
+}
+
+void Renderer::setUp(const vec3 &up)
+{
+   glUniform3f(glGetUniformLocation(mShaderId, "uUp"), up[0], up[1], up[2]);
 }
 
 void Renderer::begin(GLuint texIf, BlendMode mode)

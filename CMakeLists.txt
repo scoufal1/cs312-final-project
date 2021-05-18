@@ -85,6 +85,8 @@ set(RENDER_SOURCES
 set(PSYS_SOURCES 
     src/springsystem.h
     src/springsystem.cpp
+    src/simplespringsystem.h
+    src/simplespringsystem.cpp
     src/particlesystem.h
     src/particlesystem.cpp
     )
@@ -92,6 +94,12 @@ set(PSYS_SOURCES
 set(SHADERS
     shaders/billboard.fs
     shaders/billboard.vs)
+   
+add_executable(simple-demo src/simplespring-demo.cpp ${PSYS_SOURCES} ${RENDER_SOURCES} ${SHADERS})
+target_link_libraries(simple-demo ${CORE})
 
 add_executable(demo src/spring-demo.cpp ${PSYS_SOURCES} ${RENDER_SOURCES} ${SHADERS})
 target_link_libraries(demo ${CORE})
+
+add_executable(lines src/main-lines.cpp src/linesystem.h src/linesystem.cpp ${PSYS_SOURCES} ${RENDER_SOURCES} ${SHADERS})
+target_link_libraries(lines ${CORE})

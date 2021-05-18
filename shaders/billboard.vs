@@ -7,7 +7,8 @@ uniform float uSize;
 uniform vec3 uOffset;
 uniform vec4 uColor;
 uniform mat4 uVP;
-uniform bool isLine; // NEW UNIFORM
+uniform bool isLine; 
+uniform vec3 uUp;
 
 out vec4 color;
 out vec2 uv;
@@ -31,9 +32,9 @@ void main()
       pos.z = pos.z * uSize;
 
       // rotate
-      vec3 up = vec3(0.0, 1.0, 0.0);
+      //vec3 up = vec3(0.0, 1.0, 0.0);
       vec3 rotZ = normalize(uCameraPos - pos);
-      vec3 rotX = normalize(cross(up, rotZ));
+      vec3 rotX = normalize(cross(uUp, rotZ));
       vec3 rotY = normalize(cross(rotZ, rotX));
 
       mat3 rotation = mat3(rotX, rotY, rotZ);
