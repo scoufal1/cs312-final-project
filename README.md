@@ -1,10 +1,7 @@
-# cs312-final-project
+# cs312-final-project: mass-spring simulation
 
-# particles
+Implements mass-spring particle simulation using openGL
 
-Implements particle systems using openGL
-
-TODO: Add a representative image for your project here
 
 ## How to build
 
@@ -73,7 +70,7 @@ https://user-images.githubusercontent.com/48161551/118842754-78ba9b80-b897-11eb-
 
 ### Camera Motion and Particle-Mouse Interaction
 
-The user can rotate the camera around the origin by dragging with the left mouse down. SHIFT+Drag with the left mouse button down moves the camera towards and away from the origin.
+The user can rotate the camera around the origin by dragging with the left mouse down. SHIFT+Drag with the left mouse button down moves the camera towards and away from the origin. The user can also click and drag particles to move them.
 
 https://user-images.githubusercontent.com/48161551/118842463-398c4a80-b897-11eb-876e-9b4e46a5c0b8.mov
 
