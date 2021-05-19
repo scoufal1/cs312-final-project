@@ -100,6 +100,3 @@ target_link_libraries(simple-demo ${CORE})
 
 add_executable(demo src/spring-demo.cpp ${PSYS_SOURCES} ${RENDER_SOURCES} ${SHADERS})
 target_link_libraries(demo ${CORE})
-
-add_executable(lines src/main-lines.cpp src/linesystem.h src/linesystem.cpp ${PSYS_SOURCES} ${RENDER_SOURCES} ${SHADERS})
-target_link_libraries(lines ${CORE})

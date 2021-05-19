@@ -30,12 +30,12 @@ namespace agl
       virtual void draw();
 
       static Renderer &GetRenderer();
+      std::vector<Particle> mParticles;
 
    protected:
       virtual void createParticles(int size) = 0;
 
    protected:
-      std::vector<Particle> mParticles;
       GLuint mTexture;
       BlendMode mBlendMode;
       static Renderer theRenderer;

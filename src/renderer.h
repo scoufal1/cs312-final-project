@@ -34,8 +34,6 @@ namespace agl
 
       virtual bool initialized() const;
       glm::vec3 cameraPosition() const;
-      glm::vec2 getScreenCoords(glm::vec3 point3D);
-      glm::vec3 getWorldCoords(glm::vec2 screen2D);
 
    protected:
       virtual void blendMode(BlendMode mode);

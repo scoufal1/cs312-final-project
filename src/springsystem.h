@@ -19,9 +19,8 @@ namespace agl
         virtual void update(float dt) override;
         virtual void draw() override;
         virtual ~SpringSystem() override;
-        int hitParticle(double xpos, double ypos);
-        bool moveParticle(int selectedParticle, double xpos, double ypos);
         void calculateForces(float dt);
+
         void increaseKspring();
         void decreaseKspring();
         void increaseMasses();
